@@ -2,8 +2,6 @@
 
 ### Python Analytics • International Trade Compliance • Executive Decision Support
 
-**Turning global trade data into actionable business intelligence.**
-
 This portfolio project demonstrates how Python can support international trade compliance, tariff exposure analysis, and data-driven business decisions.
 
 Using synthetic import transactions and illustrative Section 201, 232, and 301 tariff scenarios, the analysis identifies potential duty exposure, prioritizes compliance reviews, and translates financial data into executive-level insights.
