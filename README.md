@@ -19,7 +19,7 @@ The Executive Trade Compliance Intelligence Dashboard includes:
 - Country-of-origin sourcing diversification
 - Selected historical U.S. tariff policy milestones from 2022–2026
 
-**Dashboard:** `outputs/trade_compliance_dashboard_v3.png`
+![GaiAnQi Executive Trade Compliance Dashboard](outputs/trade_compliance_dashboard_v3.png)
 
 ## Key Findings
 
