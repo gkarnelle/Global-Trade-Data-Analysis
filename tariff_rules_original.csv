@@ -1,0 +1,8 @@
+
+rule_id,program,product_category,origin_code,effective_start,effective_end,illustrative_additional_rate,review_note
+TR001,Section 232,Steel,ALL,2025-01-01,2026-10-29,0.25,Verify covered steel articles and applicable Chapter 99 provisions
+TR002,Section 232,Aluminum,ALL,2025-01-01,2026-10-29,0.25,Verify covered aluminum articles and applicable Chapter 99 provisions
+TR003,Section 301,Electronics,CN,2025-01-01,2026-10-29,0.25,Verify HTS coverage and applicable exclusions
+TR004,Section 301,Machinery,CN,2025-01-01,2026-10-29,0.25,Verify HTS coverage and applicable exclusions
+TR005,Section 301,Batteries,CN,2025-01-01,2026-10-29,0.25,Verify battery classification and product-specific rates
+TR006,Section 201,Solar,ALL,2025-01-01,2026-10-29,0.15,Verify safeguard scope and effective dates
