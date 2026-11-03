@@ -1,4 +1,4 @@
-### Global Trade Data Analysis & Compliance Intelligence | 2022–2026
+### Global Trade Data Analysis
 
 **GaiAnQi Global Trading is a fictional U.S. importer. All company transactions, sourcing patterns, and financial figures are synthetic.**
 
