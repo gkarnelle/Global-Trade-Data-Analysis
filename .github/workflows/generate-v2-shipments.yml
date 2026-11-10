@@ -1,0 +1,61 @@
+
+name: Generate V2 Shipments
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate shipment data
+        run: python v2/generate_shipments.py
+
+      - name: Validate generated files
+        run: |
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+
+          data = Path("v2/data")
+
+          for filename, expected in [
+              ("shipments.csv", 3000),
+              ("shipment_lines.csv", 5000),
+          ]:
+              with (data / filename).open(
+                  newline="", encoding="utf-8"
+              ) as f:
+                  rows = list(csv.DictReader(f))
+
+              assert len(rows) == expected, (
+                  f"{filename}: expected {expected}, "
+                  f"found {len(rows)}"
+              )
+              print(f"PASS: {filename} ({len(rows)} records)")
+          PY
+
+      - name: Commit generated shipment datasets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add v2/data/shipments.csv
+          git add v2/data/shipment_lines.csv
+
+          if ! git diff --cached --quiet; then
+            git commit -m "Generate V2 synthetic shipment datasets"
+            git push
+          fi
