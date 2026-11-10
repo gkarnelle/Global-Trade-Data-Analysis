@@ -1,0 +1,61 @@
+product_id,product_description,product_category,illustrative_hts_code,unit_cost_usd,classification_review_status
+PRD-001,Steel fasteners - Model 001,Steel,7318.15.0000,734.02,Pending Verification
+PRD-002,Aluminum components - Model 002,Aluminum,7616.99.5190,142.62,Pending Verification
+PRD-003,Electronic control units - Model 003,Electronics,8537.10.9170,148.58,Pending Verification
+PRD-004,Industrial pumps - Model 004,Machinery,8413.70.2004,583.2,Pending Verification
+PRD-005,Solar panels - Model 005,Solar,8541.43.0010,513.0,Pending Verification
+PRD-006,Industrial batteries - Model 006,Batteries,8507.60.0020,336.28,Pending Verification
+PRD-007,Steel fasteners - Model 007,Steel,7318.15.0000,512.57,Pending Verification
+PRD-008,Aluminum components - Model 008,Aluminum,7616.99.5190,405.82,Pending Verification
+PRD-009,Electronic control units - Model 009,Electronics,8537.10.9170,224.93,Pending Verification
+PRD-010,Industrial pumps - Model 010,Machinery,8413.70.2004,476.94,Pending Verification
+PRD-011,Solar panels - Model 011,Solar,8541.43.0010,801.93,Pending Verification
+PRD-012,Industrial batteries - Model 012,Batteries,8507.60.0020,583.04,Pending Verification
+PRD-013,Steel fasteners - Model 013,Steel,7318.15.0000,110.65,Pending Verification
+PRD-014,Aluminum components - Model 014,Aluminum,7616.99.5190,753.8,Pending Verification
+PRD-015,Electronic control units - Model 015,Electronics,8537.10.9170,641.98,Pending Verification
+PRD-016,Industrial pumps - Model 016,Machinery,8413.70.2004,656.78,Pending Verification
+PRD-017,Solar panels - Model 017,Solar,8541.43.0010,299.05,Pending Verification
+PRD-018,Industrial batteries - Model 018,Batteries,8507.60.0020,260.07,Pending Verification
+PRD-019,Steel fasteners - Model 019,Steel,7318.15.0000,147.06,Pending Verification
+PRD-020,Aluminum components - Model 020,Aluminum,7616.99.5190,17.71,Pending Verification
+PRD-021,Electronic control units - Model 021,Electronics,8537.10.9170,617.95,Pending Verification
+PRD-022,Industrial pumps - Model 022,Machinery,8413.70.2004,615.93,Pending Verification
+PRD-023,Solar panels - Model 023,Solar,8541.43.0010,826.53,Pending Verification
+PRD-024,Industrial batteries - Model 024,Batteries,8507.60.0020,651.24,Pending Verification
+PRD-025,Steel fasteners - Model 025,Steel,7318.15.0000,438.91,Pending Verification
+PRD-026,Aluminum components - Model 026,Aluminum,7616.99.5190,103.85,Pending Verification
+PRD-027,Electronic control units - Model 027,Electronics,8537.10.9170,537.13,Pending Verification
+PRD-028,Industrial pumps - Model 028,Machinery,8413.70.2004,717.79,Pending Verification
+PRD-029,Solar panels - Model 029,Solar,8541.43.0010,438.9,Pending Verification
+PRD-030,Industrial batteries - Model 030,Batteries,8507.60.0020,181.09,Pending Verification
+PRD-031,Steel fasteners - Model 031,Steel,7318.15.0000,327.22,Pending Verification
+PRD-032,Aluminum components - Model 032,Aluminum,7616.99.5190,149.89,Pending Verification
+PRD-033,Electronic control units - Model 033,Electronics,8537.10.9170,811.17,Pending Verification
+PRD-034,Industrial pumps - Model 034,Machinery,8413.70.2004,785.23,Pending Verification
+PRD-035,Solar panels - Model 035,Solar,8541.43.0010,781.94,Pending Verification
+PRD-036,Industrial batteries - Model 036,Batteries,8507.60.0020,515.12,Pending Verification
+PRD-037,Steel fasteners - Model 037,Steel,7318.15.0000,422.99,Pending Verification
+PRD-038,Aluminum components - Model 038,Aluminum,7616.99.5190,108.41,Pending Verification
+PRD-039,Electronic control units - Model 039,Electronics,8537.10.9170,318.09,Pending Verification
+PRD-040,Industrial pumps - Model 040,Machinery,8413.70.2004,837.74,Pending Verification
+PRD-041,Solar panels - Model 041,Solar,8541.43.0010,688.66,Pending Verification
+PRD-042,Industrial batteries - Model 042,Batteries,8507.60.0020,214.94,Pending Verification
+PRD-043,Steel fasteners - Model 043,Steel,7318.15.0000,216.13,Pending Verification
+PRD-044,Aluminum components - Model 044,Aluminum,7616.99.5190,488.74,Pending Verification
+PRD-045,Electronic control units - Model 045,Electronics,8537.10.9170,80.76,Pending Verification
+PRD-046,Industrial pumps - Model 046,Machinery,8413.70.2004,626.14,Pending Verification
+PRD-047,Solar panels - Model 047,Solar,8541.43.0010,696.38,Pending Verification
+PRD-048,Industrial batteries - Model 048,Batteries,8507.60.0020,831.62,Pending Verification
+PRD-049,Steel fasteners - Model 049,Steel,7318.15.0000,459.81,Pending Verification
+PRD-050,Aluminum components - Model 050,Aluminum,7616.99.5190,120.01,Pending Verification
+PRD-051,Electronic control units - Model 051,Electronics,8537.10.9170,565.89,Pending Verification
+PRD-052,Industrial pumps - Model 052,Machinery,8413.70.2004,805.62,Pending Verification
+PRD-053,Solar panels - Model 053,Solar,8541.43.0010,152.88,Pending Verification
+PRD-054,Industrial batteries - Model 054,Batteries,8507.60.0020,455.61,Pending Verification
+PRD-055,Steel fasteners - Model 055,Steel,7318.15.0000,521.51,Pending Verification
+PRD-056,Aluminum components - Model 056,Aluminum,7616.99.5190,820.24,Pending Verification
+PRD-057,Electronic control units - Model 057,Electronics,8537.10.9170,790.64,Pending Verification
+PRD-058,Industrial pumps - Model 058,Machinery,8413.70.2004,645.65,Pending Verification
+PRD-059,Solar panels - Model 059,Solar,8541.43.0010,591.04,Pending Verification
+PRD-060,Industrial batteries - Model 060,Batteries,8507.60.0020,610.31,Pending Verification

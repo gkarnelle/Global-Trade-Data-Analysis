@@ -1,0 +1,41 @@
+supplier_id,supplier_name,country,country_code,lead_time_days,on_time_delivery_pct,supplier_risk_tier,supplier_status
+SUP-001,GaiAnQi Partner 001,China,CN,52,80.3,High,Active
+SUP-002,GaiAnQi Partner 002,Mexico,MX,29,83.1,Low,Active
+SUP-003,GaiAnQi Partner 003,Canada,CA,59,80.2,High,Active
+SUP-004,GaiAnQi Partner 004,Germany,DE,46,79.8,Medium,Active
+SUP-005,GaiAnQi Partner 005,Vietnam,VN,14,78.6,Low,Active
+SUP-006,GaiAnQi Partner 006,South Korea,KR,26,88.6,Low,Active
+SUP-007,GaiAnQi Partner 007,China,CN,47,82.2,High,Active
+SUP-008,GaiAnQi Partner 008,Mexico,MX,56,89.4,Low,Active
+SUP-009,GaiAnQi Partner 009,Canada,CA,40,90.4,Low,Active
+SUP-010,GaiAnQi Partner 010,Germany,DE,60,94.9,High,Active
+SUP-011,GaiAnQi Partner 011,Vietnam,VN,39,85.1,Low,Active
+SUP-012,GaiAnQi Partner 012,South Korea,KR,25,98.1,Medium,Active
+SUP-013,GaiAnQi Partner 013,China,CN,18,79.9,Low,Active
+SUP-014,GaiAnQi Partner 014,Mexico,MX,34,95.8,High,Active
+SUP-015,GaiAnQi Partner 015,Canada,CA,28,94.9,High,Active
+SUP-016,GaiAnQi Partner 016,Germany,DE,41,89.3,Medium,Active
+SUP-017,GaiAnQi Partner 017,Vietnam,VN,17,89.6,High,Active
+SUP-018,GaiAnQi Partner 018,South Korea,KR,51,96.6,Medium,Active
+SUP-019,GaiAnQi Partner 019,China,CN,48,82.0,Low,Active
+SUP-020,GaiAnQi Partner 020,Mexico,MX,14,91.9,Medium,Active
+SUP-021,GaiAnQi Partner 021,Canada,CA,17,96.0,Low,Active
+SUP-022,GaiAnQi Partner 022,Germany,DE,36,83.8,High,Active
+SUP-023,GaiAnQi Partner 023,Vietnam,VN,65,85.7,Medium,Active
+SUP-024,GaiAnQi Partner 024,South Korea,KR,34,82.4,Medium,Active
+SUP-025,GaiAnQi Partner 025,China,CN,56,97.7,High,Active
+SUP-026,GaiAnQi Partner 026,Mexico,MX,16,90.8,Low,Active
+SUP-027,GaiAnQi Partner 027,Canada,CA,46,93.3,Low,Active
+SUP-028,GaiAnQi Partner 028,Germany,DE,41,86.0,High,Active
+SUP-029,GaiAnQi Partner 029,Vietnam,VN,56,89.7,High,Active
+SUP-030,GaiAnQi Partner 030,South Korea,KR,32,95.7,Low,Active
+SUP-031,GaiAnQi Partner 031,China,CN,26,95.3,Medium,Active
+SUP-032,GaiAnQi Partner 032,Mexico,MX,37,83.6,Low,Active
+SUP-033,GaiAnQi Partner 033,Canada,CA,48,96.4,Medium,Active
+SUP-034,GaiAnQi Partner 034,Germany,DE,25,91.8,Medium,Active
+SUP-035,GaiAnQi Partner 035,Vietnam,VN,53,87.6,Medium,Active
+SUP-036,GaiAnQi Partner 036,South Korea,KR,20,83.2,High,Active
+SUP-037,GaiAnQi Partner 037,China,CN,46,83.5,High,Active
+SUP-038,GaiAnQi Partner 038,Mexico,MX,39,96.9,Medium,Active
+SUP-039,GaiAnQi Partner 039,Canada,CA,35,82.6,Low,Active
+SUP-040,GaiAnQi Partner 040,Germany,DE,44,88.4,Low,Active
