@@ -1,0 +1,178 @@
+
+name: Generate V2 Customs Entries
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-customs-entries:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate customs entry datasets
+        run: python v2/generate_customs_entries.py
+
+      - name: Validate generated customs entry datasets
+        run: |
+          python - <<'PY'
+          import csv
+          from collections import defaultdict
+          from decimal import Decimal
+          from pathlib import Path
+
+          data = Path("v2/data")
+
+          def read_csv(name):
+              with (data / name).open(
+                  newline="", encoding="utf-8"
+              ) as f:
+                  return list(csv.DictReader(f))
+
+          shipments = read_csv("shipments.csv")
+          shipment_lines = read_csv("shipment_lines.csv")
+          entries = read_csv("customs_entries.csv")
+          lines = read_csv("customs_entry_lines.csv")
+
+          delivered_ids = {
+              s["shipment_id"]
+              for s in shipments
+              if s["shipment_status"] == "Delivered"
+          }
+
+          entry_shipment_ids = {
+              e["shipment_id"] for e in entries
+          }
+
+          assert entry_shipment_ids == delivered_ids, (
+              "Customs entries must match delivered shipments"
+          )
+
+          assert len(entries) == len(delivered_ids), (
+              "Expected one entry per delivered shipment"
+          )
+
+          assert len({
+              e["entry_id"] for e in entries
+          }) == len(entries), "Duplicate entry IDs"
+
+          assert len({
+              line["entry_line_id"] for line in lines
+          }) == len(lines), "Duplicate entry line IDs"
+
+          shipment_line_by_id = {
+              s["shipment_line_id"]: s
+              for s in shipment_lines
+          }
+
+          assert len(shipment_line_by_id) == len(
+              shipment_lines
+          ), "Duplicate shipment line IDs"
+
+          entry_by_id = {
+              e["entry_id"]: e for e in entries
+          }
+
+          assert len(entry_by_id) == len(entries)
+
+          expected_line_ids = {
+              s["shipment_line_id"]
+              for s in shipment_lines
+              if s["shipment_id"] in delivered_ids
+          }
+
+          actual_line_ids = {
+              line["shipment_line_id"] for line in lines
+          }
+
+          assert actual_line_ids == expected_line_ids, (
+              "Missing or unexpected customs entry lines"
+          )
+
+          assert len(lines) == len(expected_line_ids), (
+              "Duplicate shipment-line references"
+          )
+
+          totals = defaultdict(
+              lambda: Decimal("0.00")
+          )
+
+          for line in lines:
+              entry = entry_by_id[line["entry_id"]]
+              shipment_line = shipment_line_by_id[
+                  line["shipment_line_id"]
+              ]
+
+              assert (
+                  shipment_line["shipment_id"]
+                  == entry["shipment_id"]
+              ), "Entry/shipment mismatch"
+
+              assert (
+                  line["purchase_order_line_id"]
+                  == shipment_line["purchase_order_line_id"]
+              ), "Purchase order line mismatch"
+
+              assert (
+                  line["product_id"]
+                  == shipment_line["product_id"]
+              ), "Product mismatch"
+
+              assert (
+                  line["quantity_entered"]
+                  == shipment_line["quantity_shipped"]
+              ), "Quantity mismatch"
+
+              invoice = Decimal(
+                  line["invoice_value_usd"]
+              )
+              adjustment = Decimal(
+                  line["valuation_adjustment_usd"]
+              )
+              entered = Decimal(
+                  line["entered_value_usd"]
+              )
+
+              assert invoice + adjustment == entered, (
+                  "Valuation reconciliation failed"
+              )
+
+              totals[line["entry_id"]] += entered
+
+          for entry in entries:
+              assert Decimal(
+                  entry["total_entered_value_usd"]
+              ) == totals[entry["entry_id"]], (
+                  "Entry total mismatch"
+              )
+
+          print("Customs entries:", len(entries))
+          print("Customs entry lines:", len(lines))
+          print("All referential integrity checks passed.")
+          print("All valuation checks passed.")
+          PY
+
+      - name: Commit generated customs entry datasets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add v2/data/customs_entries.csv
+          git add v2/data/customs_entry_lines.csv
+
+          if git diff --cached --quiet; then
+            echo "No dataset changes to commit."
+          else
+            git commit -m "Generate V2 synthetic customs entry datasets"
+            git push
+          fi
