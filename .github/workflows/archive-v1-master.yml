@@ -1,0 +1,100 @@
+
+name: Archive V1 Master Files
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  archive-v1:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Copy V1 files into archive
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+
+          root = Path(".")
+          archive = root / "archive" / "v1"
+
+          categories = {
+              "data": [".csv", ".xlsx", ".xls"],
+              "dashboards": [".html", ".png", ".jpg", ".jpeg", ".svg"],
+              "outputs": [".pdf", ".txt"],
+          }
+
+          excluded = {
+              ".git", ".github", "archive", "v2",
+              ".venv", "venv", "__pycache__"
+          }
+
+          copied = []
+
+          # Preserve root-level historical files.
+          for source in root.iterdir():
+              if not source.is_file():
+                  continue
+
+              if source.suffix.lower() == ".py":
+                  continue
+
+              if source.name in {
+                  "README.md", "CHANGELOG.md",
+                  "requirements.txt", ".gitignore",
+                  "LICENSE"
+              }:
+                  continue
+
+              for category, extensions in categories.items():
+                  if source.suffix.lower() in extensions:
+                      destination = archive / category / source.name
+                      destination.parent.mkdir(
+                          parents=True, exist_ok=True
+                      )
+                      shutil.copy2(source, destination)
+                      copied.append(str(destination))
+                      break
+
+          # Preserve historical outputs with their
+          # original relative folder structure.
+          outputs = root / "outputs"
+          if outputs.is_dir():
+              destination = archive / "outputs"
+              shutil.copytree(
+                  outputs,
+                  destination,
+                  dirs_exist_ok=True
+              )
+              copied.append(str(destination))
+
+          print("Archived V1 assets:")
+          for path in copied:
+              print(" -", path)
+
+          if not copied:
+              print("No additional eligible assets found.")
+
+          print("Original files remain unchanged.")
+          PY
+
+      - name: Commit master archive
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add archive/v1/
+
+          if git diff --cached --quiet; then
+            echo "No new archive changes."
+          else
+            git commit -m "Archive V1 datasets dashboards and outputs"
+            git push
+          fi
