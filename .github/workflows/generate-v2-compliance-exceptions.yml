@@ -1,0 +1,101 @@
+
+name: Generate V2 Compliance Exceptions
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-exceptions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate compliance exceptions
+        run: python v2/generate_compliance_exceptions.py
+
+      - name: Validate compliance exceptions
+        run: |
+          python - <<'PY'
+          import csv
+          from collections import Counter
+          from pathlib import Path
+
+          data = Path("v2/data")
+
+          def read_csv(name):
+              with (data / name).open(
+                  newline="", encoding="utf-8"
+              ) as f:
+                  return list(csv.DictReader(f))
+
+          exceptions = read_csv("compliance_exceptions.csv")
+          entries = read_csv("customs_entries.csv")
+          lines = read_csv("customs_entry_lines.csv")
+
+          entry_ids = {e["entry_id"] for e in entries}
+          line_ids = {line["entry_line_id"] for line in lines}
+
+          assert exceptions, "No exceptions generated"
+
+          assert len({
+              e["exception_id"] for e in exceptions
+          }) == len(exceptions), "Duplicate exception IDs"
+
+          assert len({
+              (e["entry_line_id"], e["exception_code"])
+              for e in exceptions
+          }) == len(exceptions), "Duplicate exception rules"
+
+          for exception in exceptions:
+              assert exception["entry_line_id"] in line_ids, (
+                  "Unknown entry line"
+              )
+
+              if exception["exception_code"] != "MISSING_ENTRY":
+                  assert exception["entry_id"] in entry_ids, (
+                      "Unknown entry header"
+                  )
+
+              assert exception["review_status"] == (
+                  "Open - Pending Analyst Review"
+              ), "Unexpected review status"
+
+              assert exception["severity"] in {
+                  "Medium", "High", "Critical"
+              }, "Invalid severity"
+
+          counts = Counter(
+              e["exception_category"] for e in exceptions
+          )
+
+          print("Total exceptions:", len(exceptions))
+          print("Exceptions by category:")
+          for category, count in sorted(counts.items()):
+              print(f"  {category}: {count}")
+
+          print("All exception validations passed.")
+          PY
+
+      - name: Commit generated compliance exceptions
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add v2/data/compliance_exceptions.csv
+
+          if git diff --cached --quiet; then
+            echo "No dataset changes to commit."
+          else
+            git commit -m "Generate V2 compliance exception dataset"
+            git push
+          fi
