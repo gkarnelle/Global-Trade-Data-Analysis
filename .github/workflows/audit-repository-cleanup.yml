@@ -1,0 +1,95 @@
+
+name: Audit Repository Cleanup
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Audit repository and archive
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+
+          root = Path(".")
+          archive = root / "archive" / "v1"
+          workflows = root / ".github" / "workflows"
+
+          def digest(path):
+              return hashlib.sha256(
+                  path.read_bytes()
+              ).hexdigest()
+
+          print("=== ROOT FILE INVENTORY ===")
+          root_files = sorted(
+              p for p in root.iterdir()
+              if p.is_file()
+          )
+          for path in root_files:
+              print(path.name)
+
+          print("\n=== ARCHIVE COPY VERIFICATION ===")
+          archive_files = [
+              p for p in archive.rglob("*")
+              if p.is_file()
+          ] if archive.exists() else []
+
+          for source in root_files:
+              if source.name in {
+                  "README.md", "CHANGELOG.md",
+                  "requirements.txt", ".gitignore",
+                  "LICENSE"
+              }:
+                  continue
+
+              matches = [
+                  p for p in archive_files
+                  if p.name == source.name
+                  and digest(p) == digest(source)
+              ]
+
+              if matches:
+                  print(
+                      f"VERIFIED: {source.name} -> "
+                      f"{matches[0]}"
+                  )
+              else:
+                  print(
+                      f"REVIEW: {source.name} "
+                      "(no identical archive copy)"
+                  )
+
+          print("\n=== WORKFLOW REFERENCE SCAN ===")
+          workflow_files = sorted(
+              list(workflows.glob("*.yml"))
+              + list(workflows.glob("*.yaml"))
+          )
+
+          for workflow in workflow_files:
+              content = workflow.read_text(
+                  encoding="utf-8"
+              )
+              references = [
+                  p.name for p in root_files
+                  if p.name in content
+              ]
+              if references:
+                  print(
+                      f"{workflow}: "
+                      f"{', '.join(references)}"
+                  )
+
+          print("\n=== AUDIT COMPLETE ===")
+          print("No files were modified or deleted.")
+          PY
