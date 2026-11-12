@@ -1,0 +1,41 @@
+supplier_id,supplier_name,country,supplier_risk_tier,master_on_time_delivery_pct,shipment_count,customs_entry_count,total_entered_value_usd
+SUP-001,GaiAnQi Partner 001,China,High,80.3,66,66,11352457.29
+SUP-002,GaiAnQi Partner 002,Mexico,Low,83.1,70,70,12928467.88
+SUP-003,GaiAnQi Partner 003,Canada,High,80.2,95,93,15245314.39
+SUP-004,GaiAnQi Partner 004,Germany,Medium,79.8,75,74,11785188.79
+SUP-005,GaiAnQi Partner 005,Vietnam,Low,78.6,50,50,8250300.52
+SUP-006,GaiAnQi Partner 006,South Korea,Low,88.6,91,90,15035751.19
+SUP-007,GaiAnQi Partner 007,China,High,82.2,60,58,10328182.73
+SUP-008,GaiAnQi Partner 008,Mexico,Low,89.4,70,69,12879518.91
+SUP-009,GaiAnQi Partner 009,Canada,Low,90.4,74,71,11651716.63
+SUP-010,GaiAnQi Partner 010,Germany,High,94.9,66,66,10004610.19
+SUP-011,GaiAnQi Partner 011,Vietnam,Low,85.1,63,62,10818616.28
+SUP-012,GaiAnQi Partner 012,South Korea,Medium,98.1,86,85,12204801.16
+SUP-013,GaiAnQi Partner 013,China,Low,79.9,75,75,14088924.94
+SUP-014,GaiAnQi Partner 014,Mexico,High,95.8,54,52,9057746.00
+SUP-015,GaiAnQi Partner 015,Canada,High,94.9,102,102,16548022.07
+SUP-016,GaiAnQi Partner 016,Germany,Medium,89.3,98,97,16892965.08
+SUP-017,GaiAnQi Partner 017,Vietnam,High,89.6,61,61,9299430.87
+SUP-018,GaiAnQi Partner 018,South Korea,Medium,96.6,67,67,11281331.75
+SUP-019,GaiAnQi Partner 019,China,Low,82.0,78,73,11307998.38
+SUP-020,GaiAnQi Partner 020,Mexico,Medium,91.9,80,80,14115723.12
+SUP-021,GaiAnQi Partner 021,Canada,Low,96.0,67,67,9862964.11
+SUP-022,GaiAnQi Partner 022,Germany,High,83.8,73,73,11722488.79
+SUP-023,GaiAnQi Partner 023,Vietnam,Medium,85.7,80,77,12332685.08
+SUP-024,GaiAnQi Partner 024,South Korea,Medium,82.4,80,80,13029577.11
+SUP-025,GaiAnQi Partner 025,China,High,97.7,85,84,15266096.46
+SUP-026,GaiAnQi Partner 026,Mexico,Low,90.8,93,93,14729402.58
+SUP-027,GaiAnQi Partner 027,Canada,Low,93.3,93,89,14423179.64
+SUP-028,GaiAnQi Partner 028,Germany,High,86.0,66,63,11969029.09
+SUP-029,GaiAnQi Partner 029,Vietnam,High,89.7,58,51,8282304.95
+SUP-030,GaiAnQi Partner 030,South Korea,Low,95.7,76,74,11222766.24
+SUP-031,GaiAnQi Partner 031,China,Medium,95.3,72,70,11326222.90
+SUP-032,GaiAnQi Partner 032,Mexico,Low,83.6,53,52,8979258.51
+SUP-033,GaiAnQi Partner 033,Canada,Medium,96.4,81,78,13728638.39
+SUP-034,GaiAnQi Partner 034,Germany,Medium,91.8,95,93,14929659.40
+SUP-035,GaiAnQi Partner 035,Vietnam,Medium,87.6,83,79,12361820.65
+SUP-036,GaiAnQi Partner 036,South Korea,High,83.2,78,78,13866000.68
+SUP-037,GaiAnQi Partner 037,China,High,83.5,63,60,8473211.88
+SUP-038,GaiAnQi Partner 038,Mexico,Medium,96.9,89,86,14568203.49
+SUP-039,GaiAnQi Partner 039,Canada,Low,82.6,59,59,9899822.96
+SUP-040,GaiAnQi Partner 040,Germany,Low,88.4,75,73,11262613.41

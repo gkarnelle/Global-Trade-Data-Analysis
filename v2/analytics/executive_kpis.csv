@@ -1,0 +1,16 @@
+metric,value
+suppliers,40
+products,60
+purchase_orders,2000
+purchase_order_lines,5000
+shipments,3000
+shipment_lines,5000
+customs_entries,2940
+customs_entry_lines,4894
+compliance_exceptions,7039
+purchase_order_value_usd,498184545.65
+customs_invoice_value_usd,487283014.49
+valuation_adjustments_usd,30000.00
+total_entered_value_usd,487313014.49
+entries_with_exceptions,2940
+reporting_as_of_date,2026-11-10
