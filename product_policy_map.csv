@@ -1,8 +1,0 @@
-map_id,product_category,program,origin_scope,review_requirement,screening_status
-MAP001,Steel,Section 232,ALL,Verify HTS coverage and steel content,Potential Review
-MAP002,Aluminum,Section 232,ALL,Verify HTS coverage and aluminum content,Potential Review
-MAP003,Electronics,Section 301,CN,Verify HTS subheading and applicable Section 301 list,Potential Review
-MAP004,Machinery,Section 301,CN,Verify HTS subheading and applicable exclusions,Potential Review
-MAP005,Batteries,Section 301,CN,Verify battery type and product-specific effective dates,Potential Review
-MAP006,Solar,Section 301,CN,Verify solar product classification and applicable Section 301 measures,Potential Review
-MAP007,Solar,Section 201,ALL,Verify safeguard coverage and relevant effective dates,Potential Review
