@@ -1,97 +1,111 @@
+
 # Changelog
 
-All notable developments to the **GaiAnQi Global Trading | Global Trade Data Analysis** portfolio project are documented here.
+## GaiAnQi Global Trading
+### Global Trade Data Analysis & Compliance Intelligence
 
-This project uses synthetic data to demonstrate trade analytics, import compliance review, data engineering, and business intelligence capabilities.
-
-The changelog distinguishes implemented capabilities from planned enhancements. Version 2.0 remains under development.
-
----
-
-## [2.0.0] - Unreleased
-
-### Added
-
-**Connected Data Architecture**
-- Established a shared synthetic data model representing GaiAnQi Global Trading.
-- Created 40 supplier master records and 60 product master records.
-- Generated 2,000 purchase orders containing 5,000 purchase order lines.
-- Generated 3,000 shipments containing 5,000 shipment lines.
-- Introduced connected customs entry headers and entry lines for delivered shipments.
-- Established traceability between suppliers, products, purchase orders, shipments, and customs entries.
-
-**Compliance Exception Intelligence**
-- Developed a Python-based compliance exception generation engine.
-- Introduced rule-based HTS classification review flags.
-- Added customs valuation adjustment review scenarios.
-- Added synthetic country-of-origin documentation reviews.
-- Introduced simulated documentation gaps and data integrity checks.
-- Established exception severity, recommended action, and analyst review status fields.
-
-**Automation and Validation**
-- Created GitHub Actions workflows for dataset generation.
-- Added automated record-count and relationship checks.
-- Introduced customs entry value reconciliation.
-- Added duplicate identifier and referential integrity validations.
-- Implemented deterministic synthetic data generation for reproducibility.
-
-### Improved
-
-- Introduced origin-specific transportation mode selection.
-- Added date-based shipment status classification.
-- Separated synthetic compliance risk indicators from confirmed regulatory findings.
-- Expanded the project beyond independent transaction analysis into connected operational datasets.
-
-### In Progress
-
-- Comprehensive V2 data quality and end-to-end validation.
-- Stable compliance exception identifiers for ongoing review tracking.
-- Enhanced analytics and interactive dashboards.
-- Updated portfolio documentation and project architecture diagrams.
-- Integration of shared synthetic identifiers across related GaiAnQi portfolio projects.
+This changelog documents the evolution of the project from foundational trade analytics into a connected, automated trade intelligence platform.
 
 ---
 
-## [1.0.0] - Historical Baseline
+## Version 2.1 | Live Streamlit Dashboard
 
-### Added
+### Major Milestone: Transition to Streamlit
 
-- Initial synthetic import transaction dataset containing 500 records.
-- Import data analysis and reporting scripts.
-- Tariff exposure analysis.
-- Preliminary trade compliance screening.
-- Initial trade analytics dashboards and visualizations.
-- Supporting tariff policy and product reference datasets.
+Migrated the primary interactive dashboard experience from the original GitHub-hosted implementation to Streamlit Community Cloud.
 
-### Historical Results
+The new dashboard provides a dedicated environment for exploring synthetic import operations and compliance intelligence.
 
-- Approximately $74.1 million in synthetic entered value analyzed.
-- 327 transactions flagged for preliminary compliance review.
-- Established the foundation for subsequent expansion into Version 2.0.
+### Delivered
+- Deployed a public Streamlit application.
+- Introduced five analytical views:
+  - Executive Overview
+  - Import Operations
+  - Supplier Intelligence
+  - Compliance Intelligence
+  - Customs Valuation
+- Added executive KPIs, interactive charts, and supplier risk-tier filtering.
+- Integrated dashboard reporting with generated analytics summaries.
+- Added customs valuation reconciliation and operational insights.
+- Improved navigation, financial formatting, and dashboard presentation.
+- Updated project documentation to feature the live application.
 
-### Archived
+**Live Dashboard:**
+https://global-trade-data-analysis-hzk4vwoxryasepp4c58s7h.streamlit.app
 
-- Preserved the original V1 Python scripts.
-- Archived historical datasets, dashboards, and generated reports.
-- Created dedicated V1 archive documentation.
-- Established the `pre-v2-reorganization` GitHub release as a historical repository checkpoint.
+**Architecture Decision:** Streamlit is now the primary interactive dashboard platform. GitHub remains the repository, automation, documentation, and version-control platform.
 
 ---
 
-## Development Principles
+## Version 2.0 | Connected Trade Data & Analytics
 
-This project follows five guiding principles:
+### Major Milestone: End-to-End Import Data Architecture
 
-1. **Traceability:** Analytical findings should connect to identifiable source records.
-2. **Reproducibility:** Synthetic datasets and analytical outputs should be regenerable.
-3. **Auditability:** Review flags should have documented logic and supporting references.
-4. **Human Oversight:** Automated screening identifies potential issues but does not replace professional compliance determinations.
-5. **Continuous Improvement:** Each version should deliver meaningful improvements in data quality, analytical depth, and usability.
+Expanded the original project into a connected synthetic import operations environment.
+
+### Data Engineering
+- Generated 40 suppliers and 60 products.
+- Created 2,000 purchase orders and 5,000 purchase order lines.
+- Generated 3,000 shipments and 5,000 shipment lines.
+- Created 2,940 customs entries and 4,894 customs entry lines.
+- Implemented shared transaction identifiers across procurement, logistics, and customs datasets.
+
+### Compliance Intelligence
+- Developed a rule-based compliance exception engine.
+- Generated 7,039 synthetic review flags.
+- Introduced exception categories, severity levels, recommended actions, and review statuses.
+- Connected exceptions to underlying customs transactions.
+- Distinguished preliminary review indicators from confirmed compliance findings.
+
+### Analytics & Automation
+- Developed a Python analytics engine.
+- Generated seven reporting summary datasets.
+- Added executive KPIs, shipment summaries, supplier analytics, and compliance reporting.
+- Implemented automated data generation and validation using GitHub Actions.
+- Added transaction relationship checks, duplicate detection, and financial reconciliation.
+
+### Project Organization
+- Established a dedicated `v2/` development structure.
+- Preserved the original project under `archive/v1/`.
+- Retained historical work for reference and version comparison.
+
+---
+
+## Version 1.0 | Foundational Trade Analytics
+**Original Project**
+
+Established the initial trade data analytics portfolio project using synthetic import transactions.
+
+### Delivered
+- Analyzed 500 synthetic import transactions.
+- Modeled approximately $74.1 million in customs entered value.
+- Identified 327 transactions requiring preliminary compliance review.
+- Developed foundational trade analytics and dashboard reporting.
+- Established the initial Python-based analytical workflow.
+
+The original implementation is preserved in the [V1 Archive](archive/v1/README.md).
+
+---
+
+## Current Architecture
+
+**Data Generation:** Python  
+**Data Processing & Analytics:** Python and Pandas  
+**Automation:** GitHub Actions  
+**Interactive Dashboard:** Streamlit Community Cloud  
+**Repository & Documentation:** GitHub  
+**Data Environment:** Synthetic, version-controlled CSV datasets  
+
+### Development Direction
+
+Future enhancements may include deeper supplier analysis, expanded compliance review workflows, additional operational KPIs, and improved data exploration.
+
+The project prioritizes reproducible analysis, transaction traceability, clear documentation, and responsible interpretation of synthetic compliance indicators.
 
 ---
 
 ## Disclaimer
 
-GaiAnQi Global Trading is a fictional company used for portfolio demonstration purposes. All transactions, suppliers, products, and compliance scenarios are synthetic.
+GaiAnQi Global Trading is a fictional company. All data and compliance scenarios are synthetic and intended for portfolio demonstration.
 
-Illustrative HTS classifications, customs valuation adjustments, and screening results are not legal determinations or guarantees of regulatory compliance.
+Compliance review flags do not represent confirmed regulatory violations or production-ready screening determinations.
