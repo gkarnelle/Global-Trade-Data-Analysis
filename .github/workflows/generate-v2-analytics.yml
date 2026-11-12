@@ -1,0 +1,86 @@
+
+name: Generate V2 Trade Analytics
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-analytics:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate trade analytics
+        run: python v2/analyze_trade_operations.py
+
+      - name: Verify analytics outputs
+        shell: bash
+        run: |
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+
+          folder = Path("v2/analytics")
+
+          expected = [
+              "executive_kpis.csv",
+              "shipment_status_summary.csv",
+              "transport_mode_summary.csv",
+              "supplier_summary.csv",
+              "exception_category_summary.csv",
+              "exception_severity_summary.csv",
+              "exception_status_summary.csv",
+          ]
+
+          for filename in expected:
+              path = folder / filename
+
+              assert path.is_file(), (
+                  f"Missing analytics output: {filename}"
+              )
+
+              with path.open(
+                  newline="", encoding="utf-8"
+              ) as f:
+                  reader = csv.DictReader(f)
+                  rows = list(reader)
+
+                  assert reader.fieldnames, (
+                      f"Missing CSV headers: {filename}"
+                  )
+
+                  assert rows, (
+                      f"Empty analytics output: {filename}"
+                  )
+
+              print(
+                  f"VERIFIED: {filename} "
+                  f"({len(rows)} rows)"
+              )
+
+          print("All analytics outputs verified.")
+          PY
+
+      - name: Commit analytics datasets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add v2/analytics/
+
+          if git diff --cached --quiet; then
+            echo "No analytics changes to commit."
+          else
+            git commit -m "Generate V2 trade analytics summaries"
+            git push
+          fi
