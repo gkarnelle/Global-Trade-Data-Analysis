@@ -1,210 +1,153 @@
+
 # Global Trade Data Analysis & Compliance Intelligence
 
-### GaiAnQi Global Trading | Synthetic Import Operations Analytics
+### GaiAnQi Global Trading | Trade Intelligence Portfolio
 
-A portfolio project demonstrating how connected import transaction data can support operational visibility, compliance risk identification, customs valuation review, and data-driven decision-making.
+**Python | SQL-Ready Data Modeling | Streamlit | Pandas | GitHub Actions | Trade Compliance**
 
-Built around **GaiAnQi Global Trading**, a fictional international importing company, this project simulates an end-to-end import data environment spanning procurement, logistics, customs entry records, and compliance exception management.
+An end-to-end trade analytics project demonstrating how connected procurement, logistics, customs, and compliance data can support business intelligence, operational oversight, and risk-based decision-making.
 
-> **Project Status:** Version 2.0 under active development. The connected data generation pipeline and initial compliance exception engine are implemented. Advanced analytics and interactive dashboards are planned enhancements.
+Built using **GaiAnQi Global Trading**, a fictional international importer, and reproducible synthetic transaction data.
 
----
+### [🚀 Launch the Live Trade Intelligence Dashboard](https://global-trade-data-analysis-hzk4vwoxryasepp4c58s7h.streamlit.app)
 
-## Executive Overview
+Explore interactive analytics covering import operations, supplier exposure, customs valuation, and compliance review activity.
 
-International trade operations generate data across multiple business functions, including sourcing, purchasing, transportation, customs brokerage, and compliance.
-
-When these records are disconnected, organizations may struggle to reconcile transactions, identify discrepancies, prioritize compliance reviews, and understand their import exposure.
-
-This project explores how a connected data architecture and reproducible Python workflows can help address those challenges.
-
-### Project Objectives
-
-- Connect supplier, product, purchase order, shipment, and customs entry records.
-- Demonstrate transactional traceability across the import lifecycle.
-- Generate realistic, reproducible synthetic trade datasets.
-- Identify potential compliance review exceptions using documented screening rules.
-- Validate financial calculations and record relationships.
-- Develop a foundation for operational and compliance analytics.
+**Status:** V2 Live | **Data:** Synthetic | **Reporting Date:** November 10, 2026
 
 ---
 
-## Version 2.0: Connected Trade Data Architecture
+## Executive Snapshot
 
-The V2 model introduces interconnected datasets representing major stages of the import process.
+| Key Metric | V2 Results |
+|---|---:|
+| Purchase Order Value | $498.18M |
+| Customs Entered Value | $487.31M |
+| Suppliers | 40 |
+| Products | 60 |
+| Purchase Orders | 2,000 |
+| Shipments | 3,000 |
+| Customs Entries | 2,940 |
+| Compliance Review Flags | 7,039 |
 
-| Data Domain | Records | Purpose |
-|---|---:|---|
-| Suppliers | 40 | Supplier profiles and operational risk attributes |
-| Products | 60 | Product master data and illustrative tariff classifications |
-| Purchase Orders | 2,000 | Procurement transaction headers |
-| Purchase Order Lines | 5,000 | Product-level purchasing details |
-| Shipments | 3,000 | Transportation and delivery records |
-| Shipment Lines | 5,000 | Product-level shipment traceability |
-| Customs Entries | Variable | Synthetic entries associated with delivered shipments |
-| Customs Entry Lines | Variable | Entry-level product, quantity, origin, and valuation details |
-| Compliance Exceptions | Variable | Rule-based compliance review indicators |
+*Compliance flags are synthetic review indicators, not confirmed violations.*
 
-Customs entry and exception record counts depend on the generated source data and applicable screening rules.
+---
 
-### Data Relationships
+## Business Problem
+
+International trade data is often fragmented across purchasing, transportation, customs brokerage, and compliance systems.
+
+This project demonstrates how connecting those records can improve transaction traceability, financial reconciliation, operational reporting, and compliance exception management.
+
+### Analytical Capabilities
+
+- **Import Operations:** Shipment volumes, transportation modes, and transaction activity.
+- **Supplier Intelligence:** Supplier exposure, shipment activity, and synthetic risk segmentation.
+- **Customs Valuation:** Invoice values, illustrative adjustments, and entered value reconciliation.
+- **Compliance Intelligence:** Rule-based exceptions categorized by risk severity, review status, and compliance topic.
+- **Data Quality:** Unique identifiers, relationship validation, and financial consistency checks.
+
+---
+
+## Connected Data Architecture
+
+V2 models the import lifecycle using linked synthetic records:
 
 ```text
-SUPPLIERS ────────────────┐
-                         │
-PRODUCTS ────────────────┤
-                         ▼
-                  PURCHASE ORDERS
-                         │
-                         ▼
-                 PURCHASE ORDER LINES
-                         │
-                         ▼
-                      SHIPMENTS
-                         │
-                         ▼
-                   SHIPMENT LINES
-                         │
-                         ▼
-                   CUSTOMS ENTRIES
-                         │
-                         ▼
-                 CUSTOMS ENTRY LINES
-                         │
-                         ▼
-                COMPLIANCE EXCEPTIONS
+Suppliers + Products
+        |
+        v
+Purchase Orders (2,000)
+        |
+        v
+Purchase Order Lines (5,000)
+        |
+        v
+Shipments (3,000)
+        |
+        v
+Shipment Lines (5,000)
+        |
+        v
+Customs Entries (2,940)
+        |
+        v
+Customs Entry Lines (4,894)
+        |
+        v
+Compliance Review Flags (7,039)
 ```
 
-Shared synthetic identifiers support traceability between purchasing, transportation, customs, and compliance records.
+Shared identifiers connect purchasing, shipment, customs, and compliance records to support transaction-level traceability.
 
 ---
 
-## Compliance Exception Intelligence
-
-The V2 compliance exception engine applies documented rules to synthetic customs entry records.
-
-### Review Categories
-
-| Category | Analytical Focus |
-|---|---|
-| HTS Classification | Classification verification and supporting rationale |
-| Customs Valuation | Review of illustrative valuation adjustments |
-| Country of Origin | Supporting documentation and origin review scenarios |
-| Documentation | Simulated missing-document scenarios |
-| Data Integrity | Invalid values and inconsistent transaction references |
-
-Each generated exception includes identifiers connecting it to the relevant customs transaction, an exception category, severity, reason, recommended action, and review status.
-
-**Important:** Exceptions represent preliminary review indicators, not confirmed violations. Some scenarios are deliberately simulated to demonstrate analytical controls and human-review workflows.
-
-The current engine provides a starting point for exception management rather than a production-ready compliance screening solution.
-
----
-
-## Automation and Data Quality
-
-The project uses Python scripts and GitHub Actions to generate and validate synthetic datasets.
-
-Implemented controls include:
-
-- Deterministic synthetic data generation.
-- Unique transaction identifier checks.
-- Purchase order and shipment relationship validation.
-- Customs entry value reconciliation.
-- Entry-to-shipment referential integrity checks.
-- Duplicate compliance exception checks.
-- Automated CSV generation and version-controlled outputs.
-
-These controls help demonstrate reproducibility, traceability, and basic data governance principles.
-
----
-
-## Technology Stack
+## Technology & Automation
 
 | Technology | Application |
 |---|---|
-| Python | Synthetic data generation and rule-based analysis |
-| CSV | Structured transaction datasets |
-| GitHub Actions | Workflow execution and automation |
-| Git / GitHub | Version control and project documentation |
-| Decimal arithmetic | Financial value reconciliation |
-| SHA-256 hashing | Deterministic exception sampling and archive verification |
+| Python | Data generation, validation, and analytics |
+| Pandas | Data transformation and dashboard preparation |
+| Streamlit | Interactive business intelligence dashboard |
+| GitHub Actions | Automated dataset generation and reporting |
+| CSV | Structured synthetic transaction datasets |
+| Git & GitHub | Version control and project documentation |
 
----
+The pipeline uses deterministic synthetic data generation, referential integrity checks, duplicate detection, and financial reconciliation.
 
-## Repository Structure
+### Repository Structure
 
 ```text
 Global-Trade-Data-Analysis/
-│
-├── .github/
-│   └── workflows/
-│       └── Automated generation and validation
-│
-├── archive/
-│   └── v1/
-│       ├── scripts/
-│       ├── data/
-│       ├── dashboards/
-│       ├── outputs/
-│       └── README.md
-│
-├── v2/
-│   ├── data/
-│   ├── generate_master_data.py
-│   ├── generate_purchase_orders.py
-│   ├── generate_shipments.py
-│   ├── generate_customs_entries.py
-│   ├── generate_compliance_exceptions.py
-│   └── README.md
-│
-├── CHANGELOG.md
-├── README.md
-└── requirements.txt
+|
+|-- .github/workflows/       # Automated pipelines
+|-- archive/v1/              # Preserved original project
+|-- v2/
+|   |-- data/                # Connected transaction datasets
+|   |-- analytics/           # Generated KPI summaries
+|   |-- generate_master_data.py
+|   |-- generate_purchase_orders.py
+|   |-- generate_shipments.py
+|   |-- generate_customs_entries.py
+|   |-- generate_compliance_exceptions.py
+|   |-- analyze_trade_operations.py
+|   |-- dashboard.py
+|   `-- README.md
+|
+|-- CHANGELOG.md
+|-- README.md
+`-- requirements.txt
 ```
-
-The original project has been preserved under `archive/v1/` for historical reference.
 
 ---
 
 ## Project Evolution
 
-### Version 1.0: Initial Trade Analytics
+**V1 | Foundational Trade Analytics**
 
-The original project analyzed 500 synthetic import transactions representing approximately $74.1 million in entered value.
+Analyzed 500 synthetic import transactions representing approximately $74.1M in entered value, with 327 transactions flagged for preliminary review.
 
-Its preliminary screening logic identified 327 transactions for further review.
+**V2 | Connected Trade Intelligence**
 
-V1 established the foundation for tariff exposure analysis, compliance screening, and trade dashboard development.
+Expanded into an automated, interconnected data environment with nearly 5,000 customs entry lines, financial reconciliation, compliance exception analytics, and a live Streamlit dashboard.
 
-### Version 2.0: Connected Import Intelligence
-
-V2 expands the project into a connected synthetic import operations environment, with procurement, logistics, customs, and compliance exception datasets.
-
-The emphasis shifts from analyzing individual transaction files to understanding relationships across the import lifecycle.
-
-For the development history, see [CHANGELOG.md](CHANGELOG.md).
-
-For historical scripts, datasets, and dashboards, see [Version 1 Archive](archive/v1/README.md).
+See the [Development Changelog](CHANGELOG.md) for project milestones and the [V1 Archive](archive/v1/) for historical work.
 
 ---
 
-## Professional Skills Demonstrated
+## Skills Demonstrated
 
-**Trade Compliance & Customs Analytics:** Import data analysis, classification review workflows, valuation reconciliation, origin documentation review, and exception identification.
+**Trade Compliance:** Customs entry analytics, classification review, valuation controls, origin documentation, and exception management.
 
-**Data Analytics & Engineering:** Relational data modeling, Python automation, reproducible datasets, data validation, and transactional traceability.
+**Data Analytics:** Relational data modeling, KPI development, data validation, reconciliation, and business intelligence.
 
-**Business Intelligence:** Analytical problem framing, KPI development, operational reporting foundations, and risk-based decision support.
-
-**Project Development:** Version control, automated workflows, documentation, historical archiving, and iterative improvement.
+**Technical Execution:** Python automation, Streamlit dashboards, GitHub Actions, version control, and reproducible workflows.
 
 ---
 
 ## Disclaimer
 
-GaiAnQi Global Trading is a fictional company. All suppliers, transactions, products, shipment records, and compliance scenarios are synthetic.
+GaiAnQi Global Trading is fictional, and all project data is synthetic. Tariff classifications, valuation scenarios, and compliance flags are illustrative. Results do not represent actual regulatory determinations or confirmed violations.
 
-Tariff classifications and customs valuation scenarios are illustrative and should not be interpreted as regulatory determinations, legal advice, or evidence of actual compliance violations.
-
-This project is intended for professional portfolio and educational demonstration purposes.
+**[Explore the Live Dashboard](https://global-trade-data-analysis-hzk4vwoxryasepp4c58s7h.streamlit.app)**
