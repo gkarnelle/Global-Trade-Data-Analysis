@@ -15,77 +15,116 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Copy V1 files into archive
+      - name: Archive and verify V1 files
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
+          import hashlib
           import shutil
 
           root = Path(".")
           archive = root / "archive" / "v1"
 
-          categories = {
-              "data": [".csv", ".xlsx", ".xls"],
-              "dashboards": [".html", ".png", ".jpg", ".jpeg", ".svg"],
-              "outputs": [".pdf", ".txt"],
-          }
+          scripts = [
+              "analysis.py",
+              "compliance_screening.py",
+              "dashboard.py",
+              "generate_import_data.py",
+              "tariff_analysis.py",
+              "trade_compliance_dashboard.py",
+              "trade_compliance_dashboard_v3.py",
+          ]
 
-          excluded = {
-              ".git", ".github", "archive", "v2",
-              ".venv", "venv", "__pycache__"
-          }
+          def sha256(path):
+              return hashlib.sha256(
+                  path.read_bytes()
+              ).hexdigest()
 
-          copied = []
+          def archive_copy(source, destination):
+              destination.parent.mkdir(
+                  parents=True, exist_ok=True
+              )
 
-          # Preserve root-level historical files.
-          for source in root.iterdir():
+              shutil.copy2(source, destination)
+
+              assert sha256(source) == sha256(destination), (
+                  f"Archive verification failed: {source}"
+              )
+
+              print(f"VERIFIED: {source} -> {destination}")
+
+          print("=== ARCHIVING V1 SCRIPTS ===")
+
+          for filename in scripts:
+              source = root / filename
+
+              if not source.is_file():
+                  raise FileNotFoundError(
+                      f"Required V1 script missing: {filename}"
+                  )
+
+              archive_copy(
+                  source,
+                  archive / "scripts" / filename
+              )
+
+          print("\n=== ARCHIVING V1 DATA AND ASSETS ===")
+
+          for source in sorted(root.iterdir()):
               if not source.is_file():
                   continue
 
-              if source.suffix.lower() == ".py":
-                  continue
+              suffix = source.suffix.lower()
 
-              if source.name in {
-                  "README.md", "CHANGELOG.md",
-                  "requirements.txt", ".gitignore",
-                  "LICENSE"
+              if suffix in {".csv", ".xlsx", ".xls"}:
+                  category = "data"
+              elif suffix in {
+                  ".png", ".jpg", ".jpeg", ".svg",
+                  ".html"
               }:
+                  category = "dashboards"
+              else:
                   continue
 
-              for category, extensions in categories.items():
-                  if source.suffix.lower() in extensions:
-                      destination = archive / category / source.name
-                      destination.parent.mkdir(
-                          parents=True, exist_ok=True
-                      )
-                      shutil.copy2(source, destination)
-                      copied.append(str(destination))
-                      break
-
-          # Preserve historical outputs with their
-          # original relative folder structure.
-          outputs = root / "outputs"
-          if outputs.is_dir():
-              destination = archive / "outputs"
-              shutil.copytree(
-                  outputs,
-                  destination,
-                  dirs_exist_ok=True
+              archive_copy(
+                  source,
+                  archive / category / source.name
               )
-              copied.append(str(destination))
 
-          print("Archived V1 assets:")
-          for path in copied:
-              print(" -", path)
+          print("\n=== ARCHIVING OUTPUTS ===")
 
-          if not copied:
-              print("No additional eligible assets found.")
+          outputs = root / "outputs"
 
+          if outputs.is_dir():
+              for source in sorted(outputs.rglob("*")):
+                  if not source.is_file():
+                      continue
+
+                  relative = source.relative_to(outputs)
+
+                  archive_copy(
+                      source,
+                      archive / "outputs" / relative
+                  )
+
+          print("\n=== FINAL VERIFICATION ===")
+
+          for filename in scripts:
+              source = root / filename
+              destination = (
+                  archive / "scripts" / filename
+              )
+
+              assert destination.is_file()
+              assert sha256(source) == sha256(destination)
+
+          print("All seven V1 scripts verified.")
           print("Original files remain unchanged.")
+          print("V2 files were not modified.")
           PY
 
-      - name: Commit master archive
+      - name: Commit verified archive
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -93,8 +132,8 @@ jobs:
           git add archive/v1/
 
           if git diff --cached --quiet; then
-            echo "No new archive changes."
+            echo "No archive changes to commit."
           else
-            git commit -m "Archive V1 datasets dashboards and outputs"
+            git commit -m "Complete and verify V1 master archive"
             git push
           fi
