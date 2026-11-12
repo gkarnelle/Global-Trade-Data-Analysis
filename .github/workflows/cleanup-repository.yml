@@ -1,0 +1,155 @@
+
+name: Clean Repository Root
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Safely remove archived legacy files
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          import shutil
+
+          root = Path(".")
+          archive = root / "archive" / "v1"
+
+          scripts = [
+              "analysis.py",
+              "compliance_screening.py",
+              "dashboard.py",
+              "generate_import_data.py",
+              "tariff_analysis.py",
+              "trade_compliance_dashboard.py",
+              "trade_compliance_dashboard_v3.py",
+          ]
+
+          assets = [
+              "compliance_risk_report.csv",
+              "import_entries.csv",
+              "product_policy_map.csv",
+              "tariff_category_exposure.csv",
+              "tariff_country_exposure.csv",
+              "tariff_intelligence_dashboard.png",
+              "tariff_policy_history.csv",
+              "tariff_program_summary.csv",
+              "tariff_rules.csv",
+              "tariff_rules_original.csv",
+              "tariff_scenario_matches.csv",
+              "trade_compliance_dashboard_v3.png",
+              "trade_dashboard.png",
+              "trade_data.csv",
+          ]
+
+          legacy = scripts + assets
+
+          def checksum(path):
+              return hashlib.sha256(
+                  path.read_bytes()
+              ).hexdigest()
+
+          # Ensure all files have identical archived copies.
+          for filename in legacy:
+              source = root / filename
+
+              if not source.is_file():
+                  raise RuntimeError(
+                      f"Missing original: {filename}"
+                  )
+
+              matches = [
+                  p for p in archive.rglob(filename)
+                  if p.is_file()
+                  and checksum(p) == checksum(source)
+              ]
+
+              if not matches:
+                  raise RuntimeError(
+                      f"Archive not verified: {filename}"
+                  )
+
+          # Protect workflows that still use root files.
+          excluded_workflows = {
+              "archive-v1-master.yml",
+              "audit-repository-cleanup.yml",
+              "cleanup-repository.yml",
+          }
+
+          workflow_dir = root / ".github" / "workflows"
+
+          for workflow in workflow_dir.iterdir():
+              if workflow.suffix not in {".yml", ".yaml"}:
+                  continue
+
+              if workflow.name in excluded_workflows:
+                  continue
+
+              content = workflow.read_text(
+                  encoding="utf-8"
+              )
+
+              for filename in legacy:
+                  if filename in content:
+                      raise RuntimeError(
+                          f"{workflow.name} references {filename}"
+                      )
+
+          # Verify the historical outputs folder.
+          outputs = root / "outputs"
+
+          if outputs.is_dir():
+              for source in outputs.rglob("*"):
+                  if not source.is_file():
+                      continue
+
+                  destination = (
+                      archive / "outputs"
+                      / source.relative_to(outputs)
+                  )
+
+                  if (
+                      not destination.is_file()
+                      or checksum(source) != checksum(destination)
+                  ):
+                      raise RuntimeError(
+                          f"Output not archived: {source}"
+                      )
+
+          # All checks passed: clean the root.
+          for filename in legacy:
+              (root / filename).unlink()
+              print(f"Removed root copy: {filename}")
+
+          if outputs.is_dir():
+              shutil.rmtree(outputs)
+              print("Removed archived root outputs folder")
+
+          print("Repository cleanup complete.")
+          print("V1 archive and V2 remain untouched.")
+          PY
+
+      - name: Commit cleanup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -u
+
+          if git diff --cached --quiet; then
+            echo "Nothing to clean."
+          else
+            git commit -m "Clean repository root and preserve V1 archive"
+            git push
+          fi
